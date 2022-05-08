@@ -2,9 +2,11 @@ var products = [{"id":101,"name":"Basket Ball","image":"basketball.png","price":
 var cart=[];
 
 $(document).ready(function(){
+    
     Show();
  
-    $(document).on('click','a',function(){
+    $(document).on('click','a',function(event){
+        event.preventDefault();
 
         if($(this).hasClass("add-to-cart")){
             var clickedId=$(this).closest('div')[0].id;
@@ -46,12 +48,25 @@ $(document).ready(function(){
             }
 
         }
+        
+
+
 
     });
 
 
+     $(document).on('keyup','td',function(event){
+        event.preventDefault();
+        if($(this).hasClass("editQ")){
+            var quant=$(this).closest('td').text();
+           cart[$(this).closest('td').parent()[0].sectionRowIndex-1].quantity=Number(quant);
+            
 
 
+
+        }
+
+     });
 
 
 });
@@ -72,7 +87,7 @@ function showCart(){
     let text="<table>";
     text+=text+="<tr><th>Product ID</th><th>Product Name</th><th>Product Price</th><th>Quantity</th></tr>";
     for(let i=0;i<cart.length;i++){
-        text+="<tr><td>"+cart[i].id+"</td><td>"+cart[i].name+"</td><td>Price: $"+cart[i].price+".00</td><td>"+cart[i].quantity+"</td></tr>";
+        text+="<tr><td>"+cart[i].id+"</td><td>"+cart[i].name+"</td><td>Price: $"+cart[i].price+".00</td><td contenteditable='true' class='editQ'>"+cart[i].quantity+"</td></tr>";
 
 
     }
