@@ -155,3 +155,12 @@ table{
 th{
 	height: 30px;
 }
+button{
+	margin: auto;
+	color: white;
+	background-color: red;
+	height: 50px;
+	width: 15%;
+	float: right;
+
+}

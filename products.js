@@ -48,6 +48,16 @@ $(document).ready(function(){
             }
 
         }
+
+        if($(this).hasClass("delete")){
+            cart.splice($(this).closest('td').parent()[0].sectionRowIndex-1,1);
+            showCart();
+            
+            
+
+
+
+        }
         
 
 
@@ -66,7 +76,22 @@ $(document).ready(function(){
 
         }
 
+        
+        
+
      });
+     $(document).on('click','button',function(event){
+        event.preventDefault();
+        if($(this).hasClass("empty")){
+            
+            cart=[];
+            showCart();
+
+
+        }
+
+
+    });
 
 
 });
@@ -87,11 +112,13 @@ function showCart(){
     let text="<table>";
     text+=text+="<tr><th>Product ID</th><th>Product Name</th><th>Product Price</th><th>Quantity</th></tr>";
     for(let i=0;i<cart.length;i++){
-        text+="<tr><td>"+cart[i].id+"</td><td>"+cart[i].name+"</td><td>Price: $"+cart[i].price+".00</td><td contenteditable='true' class='editQ'>"+cart[i].quantity+"</td></tr>";
+        text+="<tr><td>"+cart[i].id+"</td><td>"+cart[i].name+"</td><td>Price: $"+cart[i].price+".00</td><td contenteditable='true' class='editQ'>"+cart[i].quantity+"</td><td><a href='#' class='delete'>Delete</a></td></tr>";
 
 
     }
+    text+="<button class='empty'>Empty Cart</button>";
     text+="</table>"
+   
     $("#cart").html(text);
 
 }
