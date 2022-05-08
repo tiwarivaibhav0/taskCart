@@ -1,8 +1,58 @@
 var products = [{"id":101,"name":"Basket Ball","image":"basketball.png","price":150},{"id":102,"name":"Football","image":"football.png","price":120},{"id":103,"name":"Soccer","image":"soccer.png","price":110},{"id":104,"name":"Table Tennis","image":"table-tennis.png","price":130},{"id":105,"name":"Tennis","image":"tennis.png","price":100}];
-
+var cart=[];
 
 $(document).ready(function(){
     Show();
+ 
+    $(document).on('click','a',function(){
+
+        if($(this).hasClass("add-to-cart")){
+            var clickedId=$(this).closest('div')[0].id;
+            //console.log(clickedId);
+            if(cart.length>0){
+                    let flag=0;
+                   for(let j=0;j<cart.length;j++){
+                    if(clickedId==cart[j].id)
+                       {    flag=1;
+                           cart[j].quantity=cart[j].quantity+1;
+                           showCart();
+                       }
+                      
+                }
+                     if(flag==0){
+                        for(let i=0;i<products.length;i++){
+                            if(clickedId==products[i].id){
+                                var obj=products[i];
+                                obj['quantity']=1;
+                               cart.push(products[i]);
+                    
+                        }
+                        }
+                         showCart();
+                     }
+
+            }
+            else{
+                for(let i=0;i<products.length;i++){
+                    if(clickedId==products[i].id){
+                        var obj=products[i];
+                        obj['quantity']=1;
+                       cart.push(products[i]);
+            
+                }
+                }
+    
+                showCart();
+            }
+
+        }
+
+    });
+
+
+
+
+
 
 });
 
@@ -15,4 +65,18 @@ function Show(){
 
     }
     $("#products").html(text);
+}
+
+
+function showCart(){
+    let text="<table>";
+    text+=text+="<tr><th>Product ID</th><th>Product Name</th><th>Product Price</th><th>Quantity</th></tr>";
+    for(let i=0;i<cart.length;i++){
+        text+="<tr><td>"+cart[i].id+"</td><td>"+cart[i].name+"</td><td>Price: $"+cart[i].price+".00</td><td>"+cart[i].quantity+"</td></tr>";
+
+
+    }
+    text+="</table>"
+    $("#cart").html(text);
+
 }
